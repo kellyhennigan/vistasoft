@@ -782,11 +782,13 @@ VF.uint8 = uint8(round(img.*255));
 VF.mat = xform;
 
 % Retrieve key anatomical parameters
-curBgImg   = dtiGet(handles,'bg image',n);
-curBgXform = dtiGet(handles,'bg img2acpc xform',n);
+
+% curBgImg   = dtiGet(handles,'bg image',n);
+% curBgXform = dtiGet(handles,'bg img2acpc xform',n);
+
 % curBgMm    = dtiGet(handles,'bg mmpervox',n);
 % curBgName  = dtiGet(handles,'bg name',n);
-% [curBgImg, curBgMm, curBgXform, curBgName] = dtiGetCurAnat(handles);
+[curBgImg, curBgMm, curBgXform, curBgName] = dtiGetCurAnat(handles);
 VG.uint8 = uint8(round(curBgImg.*255));
 VG.mat = curBgXform;
 rotTrans = spm_coreg(VF,VG);

@@ -154,7 +154,7 @@ if(isempty(alignLandmarks))
     opt.usestretch = 1;
     opt.command = 'init';
     view_nii(h, nii, opt);
-    hstr = num2str(h);
+    hstr = num2str(h.Number);
     cb = ['d=getappdata(' hstr ');p=d.nii_view.imgXYZ.vox;setappdata(' hstr ',''ac'',p);set(gcbo,''String'',[''AC=['' num2str(p) '']'']);'];
     b1 = uicontrol(h, 'Style','pushbutton','Visible','on','String','Set AC','Position',[20 30 150 30],'Callback',cb);
     cb = ['d=getappdata(' hstr ');p=d.nii_view.imgXYZ.vox;setappdata(' hstr ',''pc'',p);set(gcbo,''String'',[''PC=['' num2str(p) '']'']);'];
