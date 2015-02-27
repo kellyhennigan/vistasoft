@@ -10,6 +10,8 @@ function dtiFixTensorsAndDT6(dt6file,tensorfile,newtensorfile)
 % Default if NEWTENSORFILE not specified, add "nonneg_" as filename prefix
 %
 % DY 03/2008
+% kjh: edited for different file structure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 [dtdir,dfile]=fileparts(dt6file);
 [tensordir,tfile]=fileparts(tensorfile);
@@ -18,13 +20,24 @@ if(~exist('newtensorfile','var')||isempty(newtensorfile))
     newtensorfile=fullfile(tensordir,['nonneg_' tfile '.gz']);
 end
 
-dtiFixTensors(tensorfile,newtensorfile)
-
-[tmp,dti30]=fileparts(dtdir);
-[tmp,bin]=fileparts(tensordir);
-[tmp,file]=fileparts(newtensorfile);
+dtiFixTensors(tensorfile,newtensorfile);
 
 dt=load(dt6file);
-dt.files.tensors=fullfile(dti30,bin,[file '.gz']);
+dt.files.tensors=newtensorfile;
 
 save(dt6file,'-struct','dt');
+
+% [tmp,dti30]=fileparts(dtdir);
+% [tmp,bin]=fileparts(tensordir);
+% [tmp,file]=fileparts(newtensorfile);
+% 
+% dt=load(dt6file);
+% dt.files.tensors=fullfile(dti30,bin,[file '.gz']);
+% 
+% save(dt6file,'-struct','dt');
+
+%%
+
+
+
+

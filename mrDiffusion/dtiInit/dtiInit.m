@@ -65,7 +65,7 @@ end
 dwDir      = dtiInitDir(dwRawFileName,dwParams);
 outBaseDir = dwDir.outBaseDir;
 fprintf('Dims = [%d %d %d %d] \nData Dir = %s \n', size(dwRaw.data), dwDir.dataDir);
-fprintf('Output Dir = %s \n', dwDir.subjectDir);
+fprintf('Output Dir = %s \n', dwDir.outBaseDir);
 
 
 
@@ -157,15 +157,20 @@ if computeB0, dtiRawComputeMeanB0(dwRaw, bvals, dwDir.mnB0Name); end
 
 %% IX. Eddy current correction
 
-% Based on user selected params decide if we do eddy current correction 
-% and resampling. If the ecc is done doResamp will be true.
+% Based on user selected params decide if we do eddy current and/or motion
+% correction and resampling. If the ecc is done doResamp will be true.
 [doECC, doResamp] = dtiInitEddyCC(dwParams,dwDir,doResamp);
 
 % If doECC comes back true do the eddy current correction
 if doECC
-   dtiRawRohdeEstimateEddyMotion(dwRaw, dwDir.mnB0Name, bvals, dwDir.ecFile,...
-                              dwParams.eddyCorrect==1);
-   % Make a figure of the Motion estimated during eddy current correction
+%    dtiRawRohdeEstimateEddyMotion(dwRaw, dwDir.mnB0Name, bvals, dwDir.ecFile,...
+%                               dwParams.eddyCorrect==1);
+
+% note if dwParams.eddyCorrect is set to 0, then this will do only motion correction
+dtiRawRohdeEstimateEddyMotion(dwRaw, dwDir.mnB0Name, bvals, dwDir.ecFile,...
+                              dwParams.eddyCorrect);
+   
+% Make a figure of the Motion estimated during eddy current correction
    dtiCheckMotion(dwDir.ecFile,'off');
 end
 
@@ -185,6 +190,7 @@ if doAlign, dtiRawAlignToT1(dwDir.mnB0Name, t1FileName, dwDir.acpcFile); end
 % the raw data. If doSample is true and we have computed an alignment or
 % we're clobbering old data we doResampleRaw will be true. 
 doResampleRaw = dtiInitResample(dwParams, dwDir, doResamp);
+
 
 % Applying the dti-to-structural xform and the eddy-current correction
 % xforms. If dwParams.eddyCorrect == 0, dwDir.ecFile will be empty and
