@@ -112,7 +112,7 @@ if(isfield(t1,'t1NormParams'))
 end
 
 % Add the subject name to the figure name.
-h.title =  sprintf('mrdMain%d %s',h.fig,h.subName);
+h.title =  sprintf('mrdMain%d %s',h.fig.Number,h.subName);
 set(h.fig,'Name',h.title);
 
 return;

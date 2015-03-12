@@ -77,7 +77,7 @@ if(nargin <= 1)  % LAUNCH GUI
     % 2nd one (rarely used) for showing Matlab 3D renderings.
     handles.fig = fig;
     handles.fig3d = figure;
-    handles.title = sprintf('mrdMain%d',fig);
+    handles.title = sprintf('mrdMain%d',fig.Number);
     handles.type  = sprintf('mrdWindow');
     set(fig,'Name',handles.title);
     
@@ -98,7 +98,7 @@ if(nargin <= 1)  % LAUNCH GUI
     
     % 3D Matlab figure initialization
     set(handles.fig3d, 'NumberTitle', 'off');
-    n = sprintf('mrd3D%d',fig);
+    n = sprintf('mrd3D%d',fig.Number);
     set(handles.fig3d, 'Name', n);
     set(handles.fig3d,  'Visible','off');
     

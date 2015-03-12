@@ -27,7 +27,7 @@ for i = 1:length(w.mat)
 	if i==1, sep = 'on'; else, sep = 'off'; end
 	
 	cb = sprintf('cbarLoadPreset(''%s'', %i, get(gca, ''UserData'')); ', f, ...
-				 viewer);
+				 viewer.Number);
 	
 	h(i) = uimenu('Parent', par, 'Label', f, 'Separator', sep, ...
 			      'Callback', cb);

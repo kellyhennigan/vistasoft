@@ -72,7 +72,11 @@ function fs_ribbon2itk(subjID, outfile, fillWithCSF, alignTo, resample_type, in_
 %
 %  AL + LMP, 5/11: Changed default interpolation method from 'nearest' to 'weighted'.
 
+
 %% Check Inputs
+
+!source $FREESURFER_HOME/SetUpFreeSurfer.sh 
+
 if ~exist('subjID', 'var')
     warning('Subject ID is required input'); %#ok<WNTAG>
     eval('help fs_ribbon2itk');
@@ -119,6 +123,7 @@ if exist('alignTo', 'var')
         str = sprintf('!mri_convert --out_orientation RAS -rt %s %s %s', ...
             resample_type, alignTo, newT1);
         alignTo = newT1;
+       str
         eval(str)
     end
 end
@@ -130,6 +135,7 @@ elseif exist('alignTo', 'var'),
 else
     str = sprintf('!mri_convert  --out_orientation RAS -rt %s %s %s', resample_type, ribbon, outfile);
 end
+str
 eval(str)
     
 
